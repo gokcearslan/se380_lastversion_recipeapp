@@ -22,6 +22,26 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool _isProcessing = false;
 
+
+  Future<void> register() async{
+
+    // if user is not created before
+    String email = _emailTextController.text;
+    String password = _passwordTextController.text;
+    final auth= FirebaseAuth.instance;
+    UserCredential userCredential= await
+    auth.createUserWithEmailAndPassword(email: email, password: password);
+
+
+    User? user = userCredential.user;
+    String uid = user?.uid ?? "";
+
+
+    //if user is created
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -51,6 +51,24 @@ class _LoginPageState extends State<LoginPage> {
     return firebaseApp;
   }
 
+  Future<void> login() async{
+
+    // if user is not created before
+    String email = _emailTextController.text;
+    String password = _passwordTextController.text;
+    final auth= FirebaseAuth.instance;
+    UserCredential userCredential= await
+    auth.createUserWithEmailAndPassword(email: email, password: password);
+
+    User? user = userCredential.user;
+    //String uid = user?.uid ?? "";
+
+
+    //if user is created
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -167,6 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20),
                                       ),
+
                                     )
                                 ),
                               ),
