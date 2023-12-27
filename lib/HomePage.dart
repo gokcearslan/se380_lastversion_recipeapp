@@ -1,7 +1,11 @@
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:se380_lastversion_recipeapp/IngredientSelection.dart';
+import 'package:se380_lastversion_recipeapp/Recipes.dart';
+import 'package:se380_lastversion_recipeapp/catagorySelectionPage.dart';
 import 'package:se380_lastversion_recipeapp/login_page.dart';
+import 'package:se380_lastversion_recipeapp/recipe_create.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -37,13 +41,47 @@ class _HomePageState extends State<HomePage> {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => LoginPage(), // Replace with your login page
+        builder: (context) => LoginPage(),
+      ),
+    );
+  }
+
+
+  void navigateCategoriesPage() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CategorySelectionScreen(),
+      ),
+    );
+  }
+
+
+  void navigateAllRecipesScreen() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AllRecipesScreen(),
       ),
     );
   }
 
 
 
+  void navigateToCreateRecipe() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CreateRecipePage(),
+      ),
+    );
+  }
+
+
+  void navigateToSelectIngredients() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) =>IngredientSelectionScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +92,6 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Display the user's name and email
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -68,10 +105,44 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      // Add a Sign-Out button that navigates to the login page
-      floatingActionButton: FloatingActionButton(
-        onPressed: signOutAndNavigateToLogin,
-        child: Text('Çıkış yap', style: TextStyle(color: Colors.black)),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: signOutAndNavigateToLogin,
+            child: Text('Çıkış yap', style: TextStyle(color: Colors.black)),
+          ),
+          SizedBox(height: 16),
+
+          ElevatedButton(
+            onPressed: navigateToCreateRecipe,
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue, // Choose your desired button color
+            ),
+            child: Text('Go to Recipe Creation', style: TextStyle(color: Colors.white)),
+          ),
+          ElevatedButton(
+            onPressed: navigateAllRecipesScreen,
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue, // Choose your desired button color
+            ),
+            child: Text('Go to ALL Recipe Creation', style: TextStyle(color: Colors.white)),
+          ),
+          ElevatedButton(
+            onPressed: navigateToSelectIngredients,
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue, // Choose your desired button color
+            ),
+            child: Text('Go to SelectIngredients', style: TextStyle(color: Colors.white)),
+          ),
+          ElevatedButton(
+            onPressed: navigateCategoriesPage,
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue, // Choose your desired button color
+            ),
+            child: Text('Go to Category', style: TextStyle(color: Colors.white)),
+          ),
+        ],
       ),
     );
   }
