@@ -1,7 +1,6 @@
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:se380_lastversion_recipeapp/list_recipes_Page.dart';
 import 'package:se380_lastversion_recipeapp/login_page.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -63,24 +62,6 @@ class _HomePageState extends State<HomePage> {
                     Text('Name: $userName', style: TextStyle(fontSize: 20)),
                     Text('Email: $userEmail', style: TextStyle(fontSize: 20)),
                   ],
-                ),
-              ),
-              // go to list recipes page
-               TextButton(
-                onPressed: () {
-                  // Navigate to the list recipe page when the text is clicked
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ListRecipesPage()),
-                  );
-                },
-                child: Text(
-                  'List Recipes',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
                 ),
               ),
             ],
