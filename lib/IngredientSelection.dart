@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:se380_lastversion_recipeapp/FilteredRecipe.dart';
 
+import 'color.dart';
+
 class IngredientSelectionScreen extends StatefulWidget {
   @override
   _IngredientSelectionScreenState createState() =>
@@ -27,7 +29,8 @@ class _IngredientSelectionScreenState extends State<IngredientSelectionScreen> {
 
       querySnapshot.docs.forEach((doc) {
         List<dynamic> recipeIngredients = doc['ingredientIds'];
-        ingredients.addAll(recipeIngredients.map((ingredient) => ingredient.toString()));
+        ingredients.addAll(
+            recipeIngredients.map((ingredient) => ingredient.toString()));
       });
 
       setState(() {
@@ -44,34 +47,57 @@ class _IngredientSelectionScreenState extends State<IngredientSelectionScreen> {
       appBar: AppBar(
         title: Text('Select Ingredients'),
       ),
-      body: ListView(
+      body: Column(
         children: [
-          for (var ingredient in allIngredients) ...[
-            CheckboxListTile(
-              title: Text(ingredient),
-              value: selectedIngredients.contains(ingredient),
-              onChanged: (value) {
-                setState(() {
-                  if (value!) {
-                    selectedIngredients.add(ingredient);
-                  } else {
-                    selectedIngredients.remove(ingredient);
-                  }
-                });
-              },
+          Expanded(
+            child: ListView(
+              children: [
+                for (var ingredient in allIngredients) ...[
+                  Card(
+                    color: PeachBG,
+                    child: CheckboxListTile(
+                      title: Text(
+                        ingredient,
+                        style: TextStyle(color: Navy),
+                      ),
+                      value: selectedIngredients.contains(ingredient),
+                      onChanged: (value) {
+                        setState(() {
+                          if (value!) {
+                            selectedIngredients.add(ingredient);
+                          } else {
+                            selectedIngredients.remove(ingredient);
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ],
             ),
-          ],
+          ),
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
               _showFilteredRecipes(context);
             },
-            child: Text('Show Recipes'),
+            style: ElevatedButton.styleFrom(
+              primary: Peach, // Adjust the background color as needed
+            ),
+            child: Text(
+              'Show Recipes',
+              style: TextStyle(
+                color: Navy,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
+
         ],
       ),
     );
   }
+
   void _showFilteredRecipes(BuildContext context) async {
     try {
       final QuerySnapshot querySnapshot =
@@ -81,9 +107,8 @@ class _IngredientSelectionScreenState extends State<IngredientSelectionScreen> {
 
       querySnapshot.docs.forEach((doc) {
         List<dynamic> recipeIngredients = doc['ingredientIds'];
-        bool containsAllSelectedIngredients =
-        selectedIngredients.every((ingredient) =>
-            recipeIngredients.contains(ingredient));
+        bool containsAllSelectedIngredients = selectedIngredients.every(
+                (ingredient) => recipeIngredients.contains(ingredient));
 
         if (containsAllSelectedIngredients) {
           filteredRecipeNames.add(doc['name']);
@@ -102,6 +127,4 @@ class _IngredientSelectionScreenState extends State<IngredientSelectionScreen> {
       print('Error fetching and filtering recipes: $e');
     }
   }
-
-
 }

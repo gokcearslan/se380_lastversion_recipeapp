@@ -19,14 +19,21 @@ class FirebaseService {
     QuerySnapshot<Map<String, dynamic>> snapshot =
     await _firestore.collection('recipes').get();
 
-    return snapshot.docs
-        .map((doc) =>
-        Recipe(
-            id: doc.id,
-            name: doc['name'],
-            ingredientIds: List<String>.from(doc['ingredientIds']), category: 'category'))
-        .toList();
+    return snapshot.docs.map((doc) {
+      final instructions = doc.data()!['instructions'];
+      final recipe = Recipe(
+        id: doc.id,
+        name: doc['name'],
+        ingredientIds: List<String>.from(doc['ingredientIds']),
+        category: 'category',
+        instructions: instructions != null ? instructions : 'No instructions',
+      );
+
+      return recipe;
+    }).toList();
   }
+
+
 
 
 
@@ -36,7 +43,8 @@ class FirebaseService {
       Map<String, dynamic> recipeData = {
         'name': recipe.name,
         'ingredientIds': recipe.ingredientIds,
-        'category': recipe.category, // Add the category field
+        'category': recipe.category,
+        'instructions': recipe.instructions, // Add the instructions field
         // Add other fields like 'id' if needed
       };
 
