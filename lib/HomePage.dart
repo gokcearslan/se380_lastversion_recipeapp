@@ -5,6 +5,11 @@ import 'package:se380_lastversion_recipeapp/Recipes.dart';
 import 'package:se380_lastversion_recipeapp/catagorySelectionPage.dart';
 import 'package:se380_lastversion_recipeapp/login_page.dart';
 import 'package:se380_lastversion_recipeapp/recipe_create.dart';
+import 'package:se380_lastversion_recipeapp/color.dart';
+
+
+import 'Profile_Page.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -82,14 +87,36 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  void navigateToProfile() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) =>ProfilePage(),
+      ),
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      appBar: AppBar(
+        title: Text('Recipe App', style: TextStyle(color: Colors.white,
+          fontWeight: FontWeight.w800, // Higher font weight for a thicker appearance
+          fontSize: 30,
+        ),
+        ),
+        backgroundColor: Navy,
+
+        // Customize the AppBar as needed
+      ),
+
+      // mail ve username kodu:
       backgroundColor: Color(0xfff2f9fe),
-      body: GestureDetector(
+      /*body: GestureDetector(
         child: Center(
-          child: Column(
+         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
@@ -105,44 +132,186 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: signOutAndNavigateToLogin,
-            child: Text('Çıkış yap', style: TextStyle(color: Colors.black)),
-          ),
-          SizedBox(height: 16),
+       */
 
-          ElevatedButton(
-            onPressed: navigateToCreateRecipe,
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue, // Choose your desired button color
+      body: SafeArea(
+        child:Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            /*
+    Expanded(
+    child: Container(
+      width: double.infinity, // Take up the full width of the screen
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+    child: FloatingActionButton(
+    onPressed: signOutAndNavigateToLogin,
+    child: Text('Çıkış yap', style: TextStyle(color: Colors.black)),
+    ),
+    ),
+    ),
+    SizedBox(height: 16),
+
+       */
+
+            Expanded(
+              child: Container(
+                width: 1000,
+                height: 60,
+                child: GestureDetector(
+                  onTap: navigateToCreateRecipe, // Function to be called on tap
+                  child: Stack(
+                    children: <Widget>[
+                      // Background Image
+                      Positioned.fill(
+                        child: Image.network(
+                          'https://i.pinimg.com/564x/2e/c7/6b/2ec76bcc46f6efa497c4ff4033dfb634.jpg',
+                          fit: BoxFit.cover, // This ensures the image covers the button area
+                        ),
+                      ),
+
+                      // Centered Text on top of the image
+                      Center(
+                        child: Text(
+                          'Create New Recipe',
+                          style: TextStyle(color: Colors.white,
+                            fontWeight: FontWeight.w800, // Higher font weight for a thicker appearance
+                            fontSize: 30,
+                          ),
+
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            child: Text('Go to Recipe Creation', style: TextStyle(color: Colors.white)),
-          ),
-          ElevatedButton(
-            onPressed: navigateAllRecipesScreen,
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue, // Choose your desired button color
+            Expanded(
+              child: Container(
+                width: 1000,
+                height: 60,
+                child: GestureDetector(
+                  onTap: navigateAllRecipesScreen, // Function to be called on tap
+                  child: Stack(
+                    children: <Widget>[
+                      // Background Image
+                      Positioned.fill(
+                        child: Image.network(
+                          'https://i.pinimg.com/564x/2e/c7/6b/2ec76bcc46f6efa497c4ff4033dfb634.jpg',
+                          fit: BoxFit.cover, // This ensures the image covers the button area
+                        ),
+                      ),
+
+                      // Centered Text on top of the image
+                      Center(
+                        child: Text(
+                          'List All Recipes',
+                          style: TextStyle(color: Colors.white,
+                            fontWeight: FontWeight.w800, // Higher font weight for a thicker appearance
+                            fontSize: 30,
+                          ),
+
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            child: Text('Go to ALL Recipe Creation', style: TextStyle(color: Colors.white)),
-          ),
-          ElevatedButton(
-            onPressed: navigateToSelectIngredients,
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue, // Choose your desired button color
+            Expanded(
+              child: Container(
+                width: 1000,
+                height: 60,
+                child: GestureDetector(
+                  onTap: navigateToSelectIngredients, // Function to be called on tap
+                  child: Stack(
+                    children: <Widget>[
+                      // Background Image
+                      Positioned.fill(
+                        child: Image.network(
+                          'https://i.pinimg.com/564x/2e/c7/6b/2ec76bcc46f6efa497c4ff4033dfb634.jpg',
+                          fit: BoxFit.cover, // This ensures the image covers the button area
+                        ),
+                      ),
+
+                      // Centered Text on top of the image
+                      Center(
+                        child: Text(
+                          'Select Ingredients to Find Recipes',
+                          style: TextStyle(color: Colors.white,
+                            fontWeight: FontWeight.w800, // Higher font weight for a thicker appearance
+                            fontSize: 30,
+                          ),
+
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            child: Text('Go to SelectIngredients', style: TextStyle(color: Colors.white)),
-          ),
-          ElevatedButton(
-            onPressed: navigateCategoriesPage,
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue, // Choose your desired button color
+            Expanded(
+              child: Container(
+                width: 1000,
+                height: 60,
+                child: GestureDetector(
+                  onTap: navigateCategoriesPage, // Function to be called on tap
+                  child: Stack(
+                    children: <Widget>[
+                      // Background Image
+                      Positioned.fill(
+                        child: Image.network(
+                          'https://i.pinimg.com/564x/2e/c7/6b/2ec76bcc46f6efa497c4ff4033dfb634.jpg',
+                          fit: BoxFit.cover, // This ensures the image covers the button area
+                        ),
+                      ),
+
+                      // Centered Text on top of the image
+                      Center(
+                        child: Text(
+                          'Recipe Categories',
+                          style: TextStyle(color: Colors.white,
+                            fontWeight: FontWeight.w800, // Higher font weight for a thicker appearance
+                            fontSize: 30,
+                          ),
+
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            child: Text('Go to Category', style: TextStyle(color: Colors.white)),
-          ),
-        ],
+
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                height: 60,
+                width: 120,
+                child: ElevatedButton(
+                  onPressed:
+                  navigateToProfile,
+                  style: ElevatedButton.styleFrom(
+                    primary: Peach,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 3.0),
+                      Text(
+                        'Profile',
+                        style: TextStyle(fontWeight: FontWeight.w800,color:Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

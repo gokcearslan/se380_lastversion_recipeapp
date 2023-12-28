@@ -1,3 +1,4 @@
+/*
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -77,4 +78,6 @@ class _CustomPageState extends State<CustomPage> {
   }
 }
 
+
+ */
 

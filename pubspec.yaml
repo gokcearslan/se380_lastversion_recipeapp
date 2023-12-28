@@ -35,6 +35,8 @@ dependencies:
   color: ^3.0.0
   overlay_support: ^2.1.0
   provider: ^6.1.1
+  image_picker: ^1.0.5
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -59,6 +61,13 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - images/login_food.jpg
+    - images/login_background.jpg
+    - images/background.jpg
+    - images/backg.jpg
+    - images/white.jpg
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

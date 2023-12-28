@@ -1,38 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:se380_lastversion_recipeapp/RecipeDetailsScreen.dart';
 import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
-import 'package:provider/provider.dart';
-import 'package:se380_lastversion_recipeapp/services/recipe_provider.dart';
+import 'RecipeDetailsScreen.dart';
 
 class CategoryPage extends StatelessWidget {
-  final String category;
+  final List<Recipe> categoryRecipes;
 
-  CategoryPage({required this.category});
+  CategoryPage({required this.categoryRecipes});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$category Recipes'),
+        title: Text('Category Recipes'),
       ),
-      body: Consumer<RecipeProvider>(
-        builder: (context, recipeProvider, _) {
-          // Filter recipes based on the selected category
-          List<Recipe> recipes = recipeProvider.recipes
-              .where((recipe) => recipe.category == category)
-              .toList();
-
-          return ListView.builder(
-            itemCount: recipes.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(recipes[index].name),
-                // Add more details if needed
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('recipes').snapshots(),
+        builder: (context, snapshot) {
+          List<ListTile> recipeWidgets = [];
+          if (snapshot.hasData) {
+            final recipes = snapshot.data?.docs.reversed.toList();
+            for (var recipe in recipes!) {
+              final recipeWidget = ListTile(
+                title: Text(recipe['name']),
+                onTap: () {
+                  // Handle the recipe item click
+                  _showRecipeDetails(context, recipe);
+                },
               );
-            },
+              recipeWidgets.add(recipeWidget);
+            }
+          }
+
+          return Expanded(
+            child: ListView(
+              children: recipeWidgets,
+            ),
           );
         },
       ),
     );
   }
-}
 
+  void _showRecipeDetails(BuildContext context, DocumentSnapshot recipe) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => RecipeDetailsScreen(recipe: recipe)),
+    );
+  }
+}
