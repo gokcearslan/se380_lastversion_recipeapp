@@ -44,7 +44,9 @@ class _RegisterPageState extends State<RegisterPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Register'),
+          title: Text('Register',style: TextStyle(color: Colors.white)),
+          backgroundColor: Navy,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Container(
           decoration: BoxDecoration(

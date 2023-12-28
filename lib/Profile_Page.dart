@@ -81,6 +81,23 @@ class _ProfilePageState extends State<ProfilePage> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Profile',
+          style: TextStyle(
+            color: Colors.white, // Set text color to white
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white), // Set icon color to white
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: Navy, // Change this color to your desired color
+      ),
+
+
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Container(
@@ -145,8 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     "Select a picture",
                                     style: TextStyle(
                                       fontSize: 15.0,
-                                      color:
-                                      Color(0xFF001489).withOpacity(0.7),
+                                      color: Color(0xFF001489).withOpacity(0.7),
                                     ),
                                   ),
                                   actions: <Widget>[
@@ -204,104 +220,83 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          width: width * 0.2,
-                          height: height * 0.06,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFffffff),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                                color: Color(0xFF001489), width: 1),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text('Name '),
+                        Text(
+                          'Name ',
+                          style: TextStyle(
+                            color: Colors.black, // Set text color to white
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: width * 0.08),
+                        SizedBox(width: width * 0.02), // Add some space between the label and the value
                         Expanded(
-                          child: Container(
-                            width: width * 0.5,
-                            height: height * 0.06,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFffffff),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                  color: Color(0xFF001489), width: 1),
+                          child: Text(
+                            '${_currentUser?.displayName ?? 'There is no such info'}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
                             ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '${_currentUser?.displayName ?? 'There is no such info'}',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: height * 0.02),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Email',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: width * 0.02),
+                        Expanded(
+                          child: Text(
+                            '${_currentUser?.email ?? 'There is no such info'}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: height * 0.02),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: _currentUser?.emailVerified == true
+                                ? Text(
+                              'Email confirmed',
+                              style: TextStyle(
+                                color: Colors.black, // Set the color for confirmed email
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
                               ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: height * 0.02),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: width * 0.2,
-                          height: height * 0.06,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFffffff),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                                color: Color(0xFF001489), width: 1),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text('Email'),
-                          ),
-                        ),
-                        SizedBox(width: width * 0.08),
-                        Expanded(
-                          child: Container(
-                            width: width * 0.5,
-                            height: height * 0.06,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFffffff),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                  color: Color(0xFF001489), width: 1),
-                            ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                  '${_currentUser?.email ?? 'There is no such info'}'),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: height * 0.02),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            width: width * 0.5,
-                            height: height * 0.06,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFffffff),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                  color: Color(0xFF001489), width: 1),
-                            ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: _currentUser?.emailVerified == true
-                                  ? Text('Email confirmed')
-                                  : Text('Email could not be confirmed'),
+                            )
+                                : Text(
+                              'Email could not be confirmed',
+                              style: TextStyle(
+                                color: Colors.black, // Set the color for unconfirmed email
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                              ),
                             ),
                           ),
                         ),
@@ -318,8 +313,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 setState(() {
                                   _isSendingVerification = true;
                                 });
-                                await _currentUser!
-                                    .sendEmailVerification();
+                                await _currentUser!.sendEmailVerification();
                                 setState(() {
                                   _isSendingVerification = false;
                                 });
@@ -327,25 +321,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                   : null,
                               child: const Text(
                                 'Confirm Email',
-                                style: TextStyle(
-                                    color: Color(0xFFffffff)),
+                                style: TextStyle(color: Color(0xFFffffff)),
                               ),
                               style: ButtonStyle(
-                                backgroundColor:
-                                MaterialStateProperty.all<Color>(Navy
-                                    ),
+                                backgroundColor: MaterialStateProperty.all<Color>(Navy),
                               ),
                             ),
                             SizedBox(width: width * 0.01),
                             IconButton(
                               style: ButtonStyle(
-                                  backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Color(0xFF001489))),
+                                backgroundColor:
+                                MaterialStateProperty.all<Color>(Color(0xfff2f9fe)),
+                              ),
                               icon: Icon(Icons.refresh),
                               onPressed: () async {
-                                User? user = await FireAuth.refreshUser(
-                                    _currentUser!);
+                                User? user = await FireAuth.refreshUser(_currentUser!);
 
                                 if (user != null) {
                                   setState(() {
@@ -388,13 +378,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   );
                                 },
                                 child: Text('Sign out',
-                                    style: TextStyle(color: Colors.black)),
+                                    style:
+                                    TextStyle(color: Colors.white)),
                                 style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 10,
                                   ),
-                                  backgroundColor: Color(0xfff2f9fe),
+                                  backgroundColor: Navy,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
@@ -419,4 +410,5 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
 }

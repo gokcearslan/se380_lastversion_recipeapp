@@ -4,14 +4,16 @@ import 'package:se380_lastversion_recipeapp/services/fire_recipe.dart';
 import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
 import 'package:se380_lastversion_recipeapp/services/recipe_provider.dart';
 
+import 'color.dart';
+
 class CreateRecipePage extends StatefulWidget {
   @override
   _CreateRecipePageState createState() => _CreateRecipePageState();
 }
 
 class _CreateRecipePageState extends State<CreateRecipePage> {
-  final Color primaryColor = Colors.blue;
-  final Color redP = Colors.red;
+  //final Color primaryColor = Colors.blue;
+  //final Color redP = Colors.red;
 
   final TextEditingController _recipeNameController = TextEditingController();
   List<TextEditingController> _ingredientControllers = [TextEditingController()];
@@ -36,16 +38,16 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
     return InputDecoration(
       labelText: label,
       alignLabelWithHint: true,
-      labelStyle: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+      labelStyle: TextStyle(color: Navy, fontWeight: FontWeight.bold),
       filled: true, // Add fill color
       fillColor: Colors.white.withOpacity(0.9),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25.0),
-        borderSide: BorderSide(color: primaryColor),
+        borderSide: BorderSide(color: Peach),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25.0),
-        borderSide: BorderSide(color: redP, width: 2.0),
+        borderSide: BorderSide(color: PeachBorder, width: 2.0),
       ),
     );
   }
@@ -88,36 +90,53 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   }
 
   Widget _buildCategoryList() {
-    return _isCategorySelected
-        ? SizedBox()
-        : ListView.builder(
-      shrinkWrap: true,
-      itemCount: _categoryImages.length,
-      itemBuilder: (context, index) {
-        String category = _categoryImages.keys.elementAt(index);
-        String imageUrl = _categoryImages[category]!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Please select a category to create a recipe',
+          style: TextStyle(
+            color: Navy,
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 16.0),
+        _isCategorySelected
+            ? SizedBox()
+            : ListView.builder(
+          shrinkWrap: true,
+          itemCount: _categoryImages.length,
+          itemBuilder: (context, index) {
+            String category = _categoryImages.keys.elementAt(index);
+            String imageUrl = _categoryImages[category]!;
 
-        return Container(
-          margin: EdgeInsets.symmetric(vertical: 4.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            image: DecorationImage(
-              image: NetworkImage(imageUrl),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken),
-            ),
-          ),
-          child: ListTile(
-            title: Text(category, style: TextStyle(color: Colors.white)),
-            onTap: () {
-              setState(() {
-                _selectedCategory = category;
-                _isCategorySelected = true;
-              });
-            },
-          ),
-        );
-      },
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 4.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                image: DecorationImage(
+                  image: NetworkImage(imageUrl),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.5),
+                    BlendMode.darken,
+                  ),
+                ),
+              ),
+              child: ListTile(
+                title: Text(category, style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  setState(() {
+                    _selectedCategory = category;
+                    _isCategorySelected = true;
+                  });
+                },
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -132,7 +151,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
             decoration: textFieldDecoration('Recipe Name'),
           ),
           SizedBox(height: 16.0),
-          Text('Ingredients:', style: TextStyle(color: primaryColor)),
+          Text('Ingredients:', style: TextStyle(color: Navy)),
           ..._ingredientControllers.map((controller) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: TextField(
@@ -142,8 +161,8 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
           )),
           TextButton.icon(
             onPressed: _addIngredientField,
-            icon: Icon(Icons.add, color: primaryColor),
-            label: Text('Add Ingredient', style: TextStyle(color: primaryColor)),
+            icon: Icon(Icons.add, color: Navy),
+            label: Text('Add Ingredient', style: TextStyle(color: Navy)),
           ),
           SizedBox(height: 16.0),
           TextField(
@@ -161,8 +180,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Recipe'),
-        backgroundColor: primaryColor,
+        title: Text('Create Recipe', style: TextStyle(color: Colors.white)),
+        backgroundColor: Navy,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -181,7 +201,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
           ? FloatingActionButton(
         onPressed: _saveRecipe,
         child: Icon(Icons.save),
-        backgroundColor: redP,
+        backgroundColor: Peach,
       )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

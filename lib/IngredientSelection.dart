@@ -45,7 +45,9 @@ class _IngredientSelectionScreenState extends State<IngredientSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Ingredients'),
+        title: Text('Select Ingredients',style: TextStyle(color: Colors.white)),
+        backgroundColor: Navy,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Column(
         children: [

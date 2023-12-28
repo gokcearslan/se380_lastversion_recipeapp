@@ -1,43 +1,64 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:se380_lastversion_recipeapp/RecipeDetailsScreen.dart';
-import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
-import 'RecipeDetailsScreen.dart';
 
 class CategoryPage extends StatelessWidget {
-  final List<Recipe> categoryRecipes;
+  final String category;
 
-  CategoryPage({required this.categoryRecipes});
+  CategoryPage({required this.category});
 
   @override
   Widget build(BuildContext context) {
+    // Debugging category received
+    print("Category received: $category");
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Category Recipes'),
+        title: Text('$category Recipes'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('recipes').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('recipes')
+            .where('category', isEqualTo: category)
+            .snapshots(),
         builder: (context, snapshot) {
-          List<ListTile> recipeWidgets = [];
-          if (snapshot.hasData) {
-            final recipes = snapshot.data?.docs.reversed.toList();
-            for (var recipe in recipes!) {
-              final recipeWidget = ListTile(
-                title: Text(recipe['name']),
-                onTap: () {
-                  // Handle the recipe item click
-                  _showRecipeDetails(context, recipe);
-                },
-              );
-              recipeWidgets.add(recipeWidget);
-            }
+          // Debugging connection state
+          print("Connection state: ${snapshot.connectionState}");
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            print("Waiting for data...");
+            return Center(child: CircularProgressIndicator());
           }
 
-          return Expanded(
-            child: ListView(
-              children: recipeWidgets,
-            ),
-          );
+          if (snapshot.hasError) {
+            print("Error: ${snapshot.error}");
+            return Center(child: Text("An error occurred: ${snapshot.error}"));
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            print("No data available for category: $category");
+            return Center(child: Text("No recipes found in the '$category' category"));
+          }
+
+          // Debugging fetched data
+          print("Fetched documents: ${snapshot.data!.docs.length}");
+          snapshot.data!.docs.forEach((doc) {
+            print("Document data: ${doc.data()}");
+          });
+
+          List<Widget> recipeWidgets = snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+            // Debugging each recipe name
+            print("Recipe name: ${data['name']}");
+            return ListTile(
+              title: Text(data['name']),
+              onTap: () {
+                _showRecipeDetails(context, document);
+              },
+            );
+          }).toList();
+
+          return ListView(children: recipeWidgets);
         },
       ),
     );
@@ -47,7 +68,8 @@ class CategoryPage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => RecipeDetailsScreen(recipe: recipe)),
+        builder: (context) => RecipeDetailsScreen(recipe: recipe),
+      ),
     );
   }
 }

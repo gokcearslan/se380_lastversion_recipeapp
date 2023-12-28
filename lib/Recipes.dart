@@ -11,7 +11,10 @@ class AllRecipesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Recipes'),
+        title: Text('All Recipes',style: TextStyle(color: Colors.white)),
+          backgroundColor: Navy,
+          iconTheme: IconThemeData(color: Colors.white),
+
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('recipes').snapshots(),
