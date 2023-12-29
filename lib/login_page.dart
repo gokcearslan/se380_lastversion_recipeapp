@@ -6,7 +6,7 @@ import 'package:se380_lastversion_recipeapp/color.dart';
 import 'package:se380_lastversion_recipeapp/register_page.dart';
 import 'package:se380_lastversion_recipeapp/services/fire_auth.dart';
 import 'package:se380_lastversion_recipeapp/validator.dart';
-import 'package:se380_lastversion_recipeapp/widget/custom_page.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(height: 8.0),
 
-                              // Password Input Field with Colored Box
+                              // Password information taken
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),

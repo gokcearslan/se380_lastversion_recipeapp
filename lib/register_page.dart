@@ -148,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   }
                                 },
                                 child: Text(
-                                  'Kaydol',
+                                  'Sign in',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 style: ElevatedButton.styleFrom(

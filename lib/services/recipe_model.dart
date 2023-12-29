@@ -14,18 +14,18 @@ class Recipe {
   final String instructions;
 
   Recipe({
-    required this.id, // Make id required
+    required this.id,
     required this.name,
     required this.ingredientIds,
     required this.category,
     required this.instructions,
   });
 
-  // Add a named constructor for creating a Recipe without providing an id
+
   Recipe.withoutId({
     required this.name,
     required this.ingredientIds,
     required this.category,
     required this.instructions,
-  }) : id = ''; // Provide a default value for id
+  }) : id = '';
 }

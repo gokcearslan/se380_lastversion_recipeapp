@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart'; // Ensure this package is added
-
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'color.dart';
 
 class RecipeDetailsScreen extends StatelessWidget {
@@ -128,7 +127,6 @@ class RecipeDetailsScreen extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             backgroundColor: Navy,
-                            // Assuming Navy is a predefined color
                             foregroundColor: Colors.white,
                             child: Text('${entry.key + 1}'),
                           ),

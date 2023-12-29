@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:se380_lastversion_recipeapp/FilteredRecipe.dart';
-
 import 'color.dart';
 
 class IngredientSelectionScreen extends StatefulWidget {
@@ -84,7 +83,7 @@ class _IngredientSelectionScreenState extends State<IngredientSelectionScreen> {
               _showFilteredRecipes(context);
             },
             style: ElevatedButton.styleFrom(
-              primary: Peach, // Adjust the background color as needed
+              backgroundColor: Peach,
             ),
             child: Text(
               'Show Recipes',

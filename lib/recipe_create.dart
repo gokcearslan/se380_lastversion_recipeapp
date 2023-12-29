@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:se380_lastversion_recipeapp/services/fire_recipe.dart';
 import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
-import 'package:se380_lastversion_recipeapp/services/recipe_provider.dart';
-
 import 'color.dart';
 
 class CreateRecipePage extends StatefulWidget {
@@ -17,7 +14,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
 
   final TextEditingController _recipeNameController = TextEditingController();
   List<TextEditingController> _ingredientControllers = [TextEditingController()];
-  TextEditingController _instructionsController = TextEditingController(); // Add instructions controller
+  TextEditingController _instructionsController = TextEditingController();
   String? _selectedCategory;
   bool _isCategorySelected = false;
 
@@ -39,7 +36,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
       labelText: label,
       alignLabelWithHint: true,
       labelStyle: TextStyle(color: Navy, fontWeight: FontWeight.bold),
-      filled: true, // Add fill color
+      filled: true,
       fillColor: Colors.white.withOpacity(0.9),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25.0),
@@ -75,7 +72,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
 
       _resetForm();
     } else {
-      // Handle empty fields (e.g., show an alert)
+      // alert will be here
     }
   }
 
@@ -83,7 +80,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
     _recipeNameController.clear();
     _ingredientControllers.forEach((controller) => controller.clear());
     _ingredientControllers = [TextEditingController()];
-    _instructionsController.clear(); // Clear instructions controller
+    _instructionsController.clear();
     _selectedCategory = null;
     _isCategorySelected = false;
     setState(() {});
@@ -167,7 +164,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
           SizedBox(height: 16.0),
           TextField(
             controller: _instructionsController,
-            maxLines: 3, // Adjust the number of lines based on your design
+            maxLines: 3,
             decoration: textFieldDecoration('Instructions'),
           ),
         ],
@@ -190,10 +187,10 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildCategoryList(),
-            SizedBox(height: 20), // Spacing
+            SizedBox(height: 20),
             _buildRecipeForm(),
-            SizedBox(height: 20), // Spacing
-            // Optionally add more widgets for aesthetic enhancement
+            SizedBox(height: 20),
+
           ],
         ),
       ),
@@ -212,7 +209,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   void dispose() {
     _recipeNameController.dispose();
     _ingredientControllers.forEach((controller) => controller.dispose());
-    _instructionsController.dispose(); // Dispose of instructions controller
+    _instructionsController.dispose();
     super.dispose();
   }
 }

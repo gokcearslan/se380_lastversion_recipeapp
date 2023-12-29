@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:se380_lastversion_recipeapp/color.dart';
-import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
-import 'package:se380_lastversion_recipeapp/services/recipe_provider.dart';
-
 import 'RecipeDetailsScreen.dart';
 
 class AllRecipesScreen extends StatelessWidget {

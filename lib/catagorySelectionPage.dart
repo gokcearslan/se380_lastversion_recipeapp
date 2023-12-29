@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:se380_lastversion_recipeapp/FilteredRecipe.dart';
-
 import 'color.dart';
 
 class CategorySelectionScreen extends StatefulWidget {
@@ -108,7 +107,7 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imageUrl = categoryImages[category] ?? 'assets/default_placeholder.png'; // Fallback to a default image
+    String imageUrl = categoryImages[category] ?? 'assets/default_placeholder.png';
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -163,7 +162,7 @@ void recipesAccordingCategory(BuildContext context, String category) async {
 
     List<String> filteredRecipeNames = querySnapshot.docs
         .map((doc) => doc['name'] as String)
-        .toList(); // Assuming 'name' is a field in each document.
+        .toList();
 
     Navigator.push(
       context,

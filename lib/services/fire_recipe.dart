@@ -1,4 +1,4 @@
-// services/firebase_service.dart
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
 
@@ -39,20 +39,19 @@ class FirebaseService {
 
   Future<void> saveRecipe(Recipe recipe) async {
     try {
-      // Convert the Recipe object to a Map
+      // Converting the Recipe information to a Map
       Map<String, dynamic> recipeData = {
         'name': recipe.name,
         'ingredientIds': recipe.ingredientIds,
         'category': recipe.category,
-        'instructions': recipe.instructions, // Add the instructions field
-        // Add other fields like 'id' if needed
+        'instructions': recipe.instructions,
+
       };
 
-      // Add the recipe data to the 'recipes' collection
       await _firestore.collection('recipes').add(recipeData);
     } catch (e) {
       print('Error saving recipe: $e');
-      // Handle the error as needed
+
     }
   }
 

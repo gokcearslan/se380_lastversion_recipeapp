@@ -68,7 +68,7 @@ class FireAuth {
     await FirebaseAuth.instance.signOut();
   }
 
-  static Future<void> sendEmailVerification() async { //E-posta doğrulaması için kullanıldı.
+  static Future<void> sendEmailVerification() async { //E-posta doğrulaması için
     User? user = FirebaseAuth.instance.currentUser;
     await user!.sendEmailVerification();
   }

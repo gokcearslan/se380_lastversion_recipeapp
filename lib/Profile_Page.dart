@@ -5,9 +5,7 @@ import 'package:se380_lastversion_recipeapp/color.dart';
 import 'package:se380_lastversion_recipeapp/services/fire_auth.dart';
 import 'package:se380_lastversion_recipeapp/services/image_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'login_page.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -85,18 +83,17 @@ class _ProfilePageState extends State<ProfilePage> {
         title: Text(
           'Profile',
           style: TextStyle(
-            color: Colors.white, // Set text color to white
+            color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white), // Set icon color to white
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        backgroundColor: Navy, // Change this color to your desired color
+        backgroundColor: Navy,
       ),
-
 
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
@@ -130,7 +127,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ? DecorationImage(
                               image: MemoryImage(Uint8List.fromList(
                                 base64Decode(_base64Image!),
-                              )),
+                              )
+                              ),
                               fit: BoxFit.cover,
                             )
                                 : null,
@@ -223,12 +221,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           'Name ',
                           style: TextStyle(
-                            color: Colors.black, // Set text color to white
+                            color: Colors.black,
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: width * 0.02), // Add some space between the label and the value
+                        SizedBox(width: width * 0.02),
                         Expanded(
                           child: Text(
                             '${_currentUser?.displayName ?? 'There is no such info'}',
@@ -285,7 +283,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ? Text(
                               'Email confirmed',
                               style: TextStyle(
-                                color: Colors.black, // Set the color for confirmed email
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18.0,
                               ),
@@ -293,7 +291,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 : Text(
                               'Email could not be confirmed',
                               style: TextStyle(
-                                color: Colors.black, // Set the color for unconfirmed email
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18.0,
                               ),

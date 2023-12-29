@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'fire_auth.dart';
 
 class ImageService{
@@ -11,8 +10,7 @@ class ImageService{
 
   Future<bool> pickAndSetImageFromGallery() async{  //Galeriden resim seçme
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery,maxHeight: 800,maxWidth: 800);//Boyutlandırma yapılacak.
-
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery,maxHeight: 800,maxWidth: 800);
     if(pickedFile != null){
       final imageBytes = await pickedFile.readAsBytes();
       _base64Image= base64Encode(imageBytes);
@@ -24,7 +22,7 @@ class ImageService{
 
   Future<bool> pickAndSetImageFromCamera() async{ //Kameradan resim seçme
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera,maxHeight: 800,maxWidth: 800); //Boyutlandırma yapılacak.
+    final pickedFile = await picker.pickImage(source: ImageSource.camera,maxHeight: 800,maxWidth: 800);
 
     if(pickedFile != null){
       final imageBytes = await pickedFile.readAsBytes();

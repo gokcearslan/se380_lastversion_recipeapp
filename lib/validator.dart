@@ -1,5 +1,5 @@
 class Validator {
-  static String? validateName({required String name}) {//İsim doğrulaması için kullanıldı.
+  static String? validateName({required String name}) {//İsim doğrulaması için
     if (name == null) {
       return null;
     }if(name.isEmpty){
@@ -7,7 +7,7 @@ class Validator {
     }
     return null;
   }
-  static String? validateEmail({required String email}) {//E-posta doğrulaması için kullanıldı.
+  static String? validateEmail({required String email}) {//E-posta doğrulaması için
     if (email == null) {
       return null;
     }
@@ -19,7 +19,7 @@ class Validator {
     }
     return null;
   }
-  static String? validatePassword({required String password}) {//Şifre doğrulaması için kullanıldı.
+  static String? validatePassword({required String password}) {//Şifre doğrulaması için
     if (password == null) {
       return null;
     }

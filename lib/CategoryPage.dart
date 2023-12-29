@@ -9,7 +9,7 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Debugging category received
+
     print("Category received: $category");
 
     return Scaffold(
@@ -22,7 +22,7 @@ class CategoryPage extends StatelessWidget {
             .where('category', isEqualTo: category)
             .snapshots(),
         builder: (context, snapshot) {
-          // Debugging connection state
+
           print("Connection state: ${snapshot.connectionState}");
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -40,15 +40,15 @@ class CategoryPage extends StatelessWidget {
             return Center(child: Text("No recipes found in the '$category' category"));
           }
 
-          // Debugging fetched data
-          print("Fetched documents: ${snapshot.data!.docs.length}");
+
+          print("documents: ${snapshot.data!.docs.length}");
           snapshot.data!.docs.forEach((doc) {
             print("Document data: ${doc.data()}");
           });
 
           List<Widget> recipeWidgets = snapshot.data!.docs.map((DocumentSnapshot document) {
             Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-            // Debugging each recipe name
+           // recipe names to test
             print("Recipe name: ${data['name']}");
             return ListTile(
               title: Text(data['name']),

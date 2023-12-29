@@ -39,20 +39,19 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   void filterRecipes(BuildContext context) {
-    // Get entered ingredients from IngredientProvider
+
     var ingredientProvider = Provider.of<IngredientProvider>(context, listen: false);
     List<String> enteredIngredients = ingredientProvider.enteredIngredients;
 
-    // Print entered ingredients for debugging
+    //print ingredients
     print('Entered Ingredients: $enteredIngredients');
 
-    // Filter recipes based on entered ingredients
+    // Filtering the recipes based on entered ingredients
     _filteredRecipes = _recipes
         .where((recipe) =>
         recipe.ingredientIds.any((ingredientId) => enteredIngredients.contains(ingredientId)))
         .toList();
 
-    // Print filtered recipes for debugging
     print('Filtered Recipes: $_filteredRecipes');
 
     notifyListeners();
