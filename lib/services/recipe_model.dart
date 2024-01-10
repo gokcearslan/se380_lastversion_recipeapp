@@ -12,6 +12,8 @@ class Recipe {
   final List<String> ingredientIds;
   final String category;
   final String instructions;
+  final String? image;
+
 
   Recipe({
     required this.id,
@@ -19,6 +21,7 @@ class Recipe {
     required this.ingredientIds,
     required this.category,
     required this.instructions,
+    required this.image,
   });
 
 
@@ -27,5 +30,7 @@ class Recipe {
     required this.ingredientIds,
     required this.category,
     required this.instructions,
+    required this.image,
+
   }) : id = '';
 }

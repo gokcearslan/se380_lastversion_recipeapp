@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:se380_lastversion_recipeapp/services/fire_recipe.dart';
 import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
 import 'color.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
 
 class CreateRecipePage extends StatefulWidget {
   @override
@@ -17,6 +20,10 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   TextEditingController _instructionsController = TextEditingController();
   String? _selectedCategory;
   bool _isCategorySelected = false;
+
+  File? _recipeImage;
+  String image= '';
+
 
   final Map<String, String> _categoryImages = {
     'Breakfast': 'https://static01.nyt.com/images/2023/04/23/multimedia/23WELL-HEALTHY-BREAKFAST9-lgwc/23WELL-HEALTHY-BREAKFAST9-lgwc-videoSixteenByNine3000.jpg',
@@ -55,26 +62,40 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
     });
   }
 
-  void _saveRecipe() async {
-    List<String> ingredients =
-    _ingredientControllers.map((controller) => controller.text).where((ingredient) => ingredient.isNotEmpty).toList();
+  void _saveRecipe() {
+    List<String> ingredients = _ingredientControllers.map((controller) => controller.text).where((ingredient) => ingredient.isNotEmpty).toList();
 
-    if (_recipeNameController.text.isNotEmpty && ingredients.isNotEmpty) {
-      Recipe newRecipe = Recipe(
-        name: _recipeNameController.text,
-        ingredientIds: ingredients,
-        category: _selectedCategory!,
-        instructions: _instructionsController.text,
-        id: '',
-      );
+    if (_recipeNameController.text.isNotEmpty && ingredients.isNotEmpty && _recipeImage != null) {
+      try {
+        // Use the image file path as the image URL
+        String imageUrl = _recipeImage!.path;
 
-      await FirebaseService().saveRecipe(newRecipe);
+        // Create a new Recipe with the image URL
+        Recipe newRecipe = Recipe(
+          name: _recipeNameController.text,
+          ingredientIds: ingredients,
+          category: _selectedCategory!,
+          instructions: _instructionsController.text,
+          image: imageUrl,
+          id: '',
+        );
 
-      _resetForm();
+        // Save the recipe to Firebase
+        FirebaseService().saveRecipe(newRecipe);
+
+        _resetForm();
+      } catch (e) {
+        print('Error saving recipe: $e');
+        // Handle error as needed
+      }
     } else {
-      // alert will be here
+      // Display an alert for missing information
     }
   }
+
+
+
+
 
   void _resetForm() {
     _recipeNameController.clear();
@@ -167,11 +188,34 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
             maxLines: 3,
             decoration: textFieldDecoration('Instructions'),
           ),
+          // Image picker
+          TextButton.icon(
+            onPressed: () async {
+              final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+              if (pickedFile != null) {
+                setState(() {
+                  _recipeImage = File(pickedFile.path);
+                });
+              }
+            },
+            icon: Icon(Icons.image, color: Navy),
+            label: Text('Add Image', style: TextStyle(color: Navy)),
+          ),
+          _recipeImage != null
+              ? Image.file(
+            _recipeImage!,
+            height: 100,
+            width: 100,
+            fit: BoxFit.cover,
+          )
+              : SizedBox(height: 20),
         ],
       ),
     )
         : SizedBox();
   }
+
 
   @override
   Widget build(BuildContext context) {

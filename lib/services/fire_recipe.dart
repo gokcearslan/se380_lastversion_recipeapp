@@ -1,6 +1,9 @@
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 class FirebaseService {
@@ -27,6 +30,8 @@ class FirebaseService {
         ingredientIds: List<String>.from(doc['ingredientIds']),
         category: 'category',
         instructions: instructions != null ? instructions : 'No instructions',
+        image: 'image',
+
       );
 
       return recipe;
@@ -45,15 +50,38 @@ class FirebaseService {
         'ingredientIds': recipe.ingredientIds,
         'category': recipe.category,
         'instructions': recipe.instructions,
-
+        'image': recipe.image,
       };
 
-      await _firestore.collection('recipes').add(recipeData);
+      // Save the recipe to Firestore
+      DocumentReference recipeRef = await _firestore.collection('recipes').add(recipeData);
+
+      // Update the recipe with the document ID
+      await recipeRef.update({'id': recipeRef.id});
     } catch (e) {
       print('Error saving recipe: $e');
-
     }
   }
+
+
+  Future<String> uploadRecipeImage(File imageFile) async {
+    try {
+      firebase_storage.Reference storageRef = firebase_storage.FirebaseStorage.instance.ref().child('recipe_images').child('${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      firebase_storage.UploadTask uploadTask = storageRef.putFile(imageFile);
+
+      // Use whenComplete to check the upload status
+      await uploadTask.whenComplete(() => print('Image uploaded successfully'));
+
+      String downloadURL = await storageRef.getDownloadURL();
+
+      return downloadURL;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return '';
+    }
+  }
+
 
 }
 

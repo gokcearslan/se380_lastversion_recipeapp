@@ -94,7 +94,6 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         backgroundColor: Navy,
       ),
-
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Container(
@@ -102,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                  'https://i.pinimg.com/564x/a1/c3/1f/a1c31fefb6984251df6f7510832225c4.jpg'),
+                  'https://i.pinimg.com/564x/68/89/e1/6889e19019131d905809a8c0e5528e58.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -127,8 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ? DecorationImage(
                               image: MemoryImage(Uint8List.fromList(
                                 base64Decode(_base64Image!),
-                              )
-                              ),
+                              )),
                               fit: BoxFit.cover,
                             )
                                 : null,
@@ -138,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           right: width * 0.01,
                           bottom: height * 0.05,
                           child: Container(
-                            width: width * 0.08,
+                            width: width * 0.15,
                             height: height * 0.07,
                             decoration: BoxDecoration(
                               color: Color(0xfff2f9fe),
@@ -160,15 +158,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                     "Select a picture",
                                     style: TextStyle(
                                       fontSize: 15.0,
-                                      color: Color(0xFF001489).withOpacity(0.7),
+                                      color: Color(0xFF001489)
+                                          .withOpacity(0.7),
                                     ),
                                   ),
                                   actions: <Widget>[
                                     CupertinoActionSheetAction(
                                       child: Text(
                                         "Camera",
-                                        style:
-                                        TextStyle(color: Color(0xFF001489)),
+                                        style: TextStyle(
+                                            color: Color(0xFF001489)),
                                       ),
                                       isDefaultAction: true,
                                       onPressed: () {
@@ -180,8 +179,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     CupertinoActionSheetAction(
                                       child: Text(
                                         "Gallery",
-                                        style:
-                                        TextStyle(color: Color(0xFF001489)),
+                                        style: TextStyle(
+                                            color: Color(0xFF001489)),
                                       ),
                                       isDefaultAction: true,
                                       onPressed: () {
@@ -191,7 +190,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       },
                                     ),
                                   ],
-                                  cancelButton: CupertinoActionSheetAction(
+                                  cancelButton:
+                                  CupertinoActionSheetAction(
                                     child: Text("Close"),
                                     isDestructiveAction: true,
                                     onPressed: () {
@@ -200,7 +200,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 );
                                 showCupertinoModalPopup(
-                                    context: context, builder: (context) => action);
+                                    context: context,
+                                    builder: (context) => action);
                               },
                               icon: Icon(
                                 Icons.edit,
@@ -213,100 +214,77 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Name ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: width * 0.02),
-                        Expanded(
-                          child: Text(
-                            '${_currentUser?.displayName ?? 'There is no such info'}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(height: height * 0.02),
-
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Email',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: width * 0.02),
-                        Expanded(
-                          child: Text(
-                            '${_currentUser?.email ?? 'There is no such info'}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ),
-                      ],
+                  SizedBox(height: 16),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(height: height * 0.02),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: _currentUser?.emailVerified == true
-                                ? Text(
-                              'Email confirmed',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                              ),
-                            )
-                                : Text(
-                              'Email could not be confirmed',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: width * 0.04),
-                        _isSendingVerification
-                            ? CircularProgressIndicator()
-                            : Row(
-                          mainAxisSize: MainAxisSize.min,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            ElevatedButton(
-                              onPressed: _currentUser != null &&
-                                  !_currentUser!.emailVerified
+                            Text(
+                              'Email',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: width * 0.02),
+                            Expanded(
+                              child: Text(
+                                '${_currentUser?.email ?? 'There is no such info'}',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: height * 0.02),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.center,
+                              child: _currentUser?.emailVerified == true
+                                  ? Text(
+                                'Email confirmed',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                ),
+                              )
+                                  : Text(
+                                'Email could not be confirmed',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: width * 0.04),
+                            _isSendingVerification
+                                ? CircularProgressIndicator()
+                                : ElevatedButton(
+                              onPressed: _currentUser != null && !_currentUser!.emailVerified
                                   ? () async {
                                 setState(() {
                                   _isSendingVerification = true;
@@ -322,16 +300,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                 style: TextStyle(color: Color(0xFFffffff)),
                               ),
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Navy),
+                                backgroundColor:
+                                MaterialStateProperty.all<Color>(Navy),
                               ),
                             ),
-                            SizedBox(width: width * 0.01),
+                          ],
+                        ),
+                        SizedBox(height: height * 0.01),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
                             IconButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                MaterialStateProperty.all<Color>(Color(0xfff2f9fe)),
-                              ),
-                              icon: Icon(Icons.refresh),
                               onPressed: () async {
                                 User? user = await FireAuth.refreshUser(_currentUser!);
 
@@ -341,23 +320,25 @@ class _ProfilePageState extends State<ProfilePage> {
                                   });
                                 }
                               },
+                              icon: Icon(Icons.refresh),
                               iconSize: width * 0.05,
                             ),
                           ],
                         ),
+
                       ],
                     ),
                   ),
                   SizedBox(height: height * 0.02),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: Column(
+                    child: Row(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Align(
-                              alignment: Alignment.center,
+                              alignment: Alignment.bottomRight,
                               child: _isSigningOut
                                   ? CircularProgressIndicator()
                                   : ElevatedButton(
@@ -375,9 +356,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   );
                                 },
-                                child: Text('Sign out',
-                                    style:
-                                    TextStyle(color: Colors.white)),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Sign out',
+                                        style: TextStyle(
+                                            color: Colors.white)),
+                                    SizedBox(width: 8),
+                                    Icon(Icons.exit_to_app,
+                                        color: Colors.white),
+                                  ],
+                                ),
                                 style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 20,
@@ -385,7 +374,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   backgroundColor: Navy,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius:
+                                    BorderRadius.circular(20),
                                   ),
                                 ),
                               ),
@@ -408,5 +398,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
 }

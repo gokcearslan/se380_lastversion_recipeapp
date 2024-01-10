@@ -4,6 +4,7 @@ import 'package:se380_lastversion_recipeapp/HomePage.dart';
 import 'package:se380_lastversion_recipeapp/color.dart';
 import 'package:se380_lastversion_recipeapp/services/fire_auth.dart';
 import 'package:se380_lastversion_recipeapp/validator.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterPage extends StatefulWidget {
   @override

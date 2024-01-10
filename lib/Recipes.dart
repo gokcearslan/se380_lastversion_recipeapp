@@ -9,8 +9,8 @@ class AllRecipesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('All Recipes',style: TextStyle(color: Colors.white)),
-          backgroundColor: Navy,
-          iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Navy,
+        iconTheme: IconThemeData(color: Colors.white),
 
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -71,7 +71,7 @@ class RecipeCard extends StatelessWidget {
           recipeName,
           style: TextStyle(color: Navy,
             //fontWeight: FontWeight.bold,
-         ),
+          ),
         ),
         leading: Container(
           width: 50.0,

@@ -12,7 +12,7 @@ class FilteredRecipesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Filtered Recipes', style: TextStyle(color: Colors.white)),
+        title: Text('Filtered Recipes ', style: TextStyle(color: Colors.white)),
         backgroundColor: Navy,
         iconTheme: IconThemeData(color: Colors.white),
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -111,7 +113,6 @@ class RecipeDetailsScreen extends StatelessWidget {
                       padding: EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        // Background color for the instruction box
                         borderRadius: BorderRadius.circular(10.0),
                         boxShadow: [
                           BoxShadow(
@@ -122,20 +123,32 @@ class RecipeDetailsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Row(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            backgroundColor: Navy,
-                            foregroundColor: Colors.white,
-                            child: Text('${entry.key + 1}'),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Navy,
+                                foregroundColor: Colors.white,
+                                child: Text('${entry.key + 1}'),
+                              ),
+                              SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  entry.value.toString(),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              entry.value.toString(),
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                          SizedBox(height: 16.0), // Add some space between text and image
+                          Image.file(
+                            File(recipe['image']), // Assuming 'image' is the file path
+                            height: 200, // Adjust the height as needed
+                            width: double.infinity, // Take the full width
+                            fit: BoxFit.cover,
                           ),
                         ],
                       ),
@@ -147,25 +160,36 @@ class RecipeDetailsScreen extends StatelessWidget {
             .toList(),
       );
     } else if (instructions is String) {
-      return Container(
-        padding: EdgeInsets.all(16.0),
-        margin: EdgeInsets.symmetric(vertical: 8.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 3),
+      return Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(16.0),
+            margin: EdgeInsets.symmetric(vertical: 8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: Text(
-          instructions,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
+            child: Text(
+              instructions,
+              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(height: 16.0), // Add some space between text and image
+          Image.file(
+            File(recipe['image']), // Assuming 'image' is the file path
+            height: 200, // Adjust the height as needed
+            width: double.infinity, // Take the full width
+            fit: BoxFit.cover,
+          ),
+        ],
       );
     } else {
       return Text(
@@ -174,4 +198,6 @@ class RecipeDetailsScreen extends StatelessWidget {
       );
     }
   }
+
+
 }
