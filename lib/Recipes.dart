@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:se380_lastversion_recipeapp/color.dart';
+import 'package:se380_lastversion_recipeapp/SecFavPage.dart';
 import 'RecipeDetailsScreen.dart';
 
 class AllRecipesScreen extends StatelessWidget {
@@ -11,7 +12,17 @@ class AllRecipesScreen extends StatelessWidget {
         title: Text('All Recipes',style: TextStyle(color: Colors.white)),
         backgroundColor: Navy,
         iconTheme: IconThemeData(color: Colors.white),
-
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FavoritesManagementScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('recipes').snapshots(),

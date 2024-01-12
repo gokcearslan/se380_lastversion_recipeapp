@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'color.dart';
+import 'edit_Recipe.dart';
 
 class RecipeDetailsScreen extends StatelessWidget {
   final DocumentSnapshot recipe;
@@ -17,7 +18,24 @@ class RecipeDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(recipe['name'], style: TextStyle(color: Colors.white)),
+        title: Text(recipe['name'], style: TextStyle(color: Colors.white, fontSize: 18)),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              // Navigate to another page when the "Add" button is pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditRecipePage(
+                    recipe: recipe.data() as Map<String, dynamic>,
+                    editMode: true, // Set to true to enter edit mode
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
         backgroundColor: Navy,
         iconTheme: IconThemeData(color: Colors.white),
       ),

@@ -81,7 +81,39 @@ class FirebaseService {
       return '';
     }
   }
+  // favorites
+  Future<void> updateFavoriteStatus(String recipeId, bool isFavorite) async {
+    try {
+      // Update the 'favorite' field in the recipe document
+      await _firestore.collection('recipes').doc(recipeId).update({'favorite': isFavorite});
+    } catch (e) {
+      print('Error updating favorite status: $e');
+    }
+  }
 
+  //edit recipes
+
+  Future<void> updateRecipe(Recipe recipe) async {
+    try {
+      // Ensure that the recipe has an ID
+      if (recipe.id == null) {
+        throw Exception('Recipe ID is null. Cannot update recipe without an ID.');
+      }
+
+      // Converting the Recipe information to a Map
+      Map<String, dynamic> updatedRecipeData = {
+        'ingredientIds': recipe.ingredientIds,
+        'instructions': recipe.instructions,
+        // Include other fields you want to update
+      };
+
+      // Update the existing recipe in Firestore
+      await _firestore.collection('recipes').doc(recipe.id).update(updatedRecipeData);
+    } catch (e) {
+      print('Error updating recipe: $e');
+      // Handle the error appropriately
+    }
+  }
 
 }
 
