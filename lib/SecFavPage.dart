@@ -50,10 +50,10 @@ class _FavoritesManagementScreenState extends State<FavoritesManagementScreen> {
                   ? recipeData['favorite'] as bool
                   : false;
 
-              // Wrap ListTile with Card
+
               return Card(
-                elevation: 4.0, // Optional: adds a slight shadow
-                margin: EdgeInsets.all(8.0), // Optional: adds spacing around each card
+                elevation: 4.0,
+                margin: EdgeInsets.all(8.0),
                 child: ListTile(
                   title: Text(recipe['name']),
                   trailing: IconButton(

@@ -20,7 +20,7 @@ class FireAuth {
       await user.reload();
       user = auth.currentUser;
 
-      //Firestore'a kullanıcı verileri ekleniyor.
+
       await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
         'name': name,
         'email': email,
@@ -31,9 +31,9 @@ class FireAuth {
 
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('Şifre çok zayıf.');
+        print('Weak Password');
       } else if (e.code == 'email-already-in-use') {
-        print('Bu mail için bir hesap zaten var.');
+        print('This mail already in use.');
       }
     }catch(e){
       print(e);
@@ -54,9 +54,9 @@ class FireAuth {
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('Bu mail için bir kullanıcı bulunmamaktadır..');
+        print('there is no such a user');
       } else if (e.code == 'wrong-password') {
-        print('Yanlış şifre!');
+        print('Wrong Password!');
       }
     }catch(e){
       print(e);
@@ -64,16 +64,16 @@ class FireAuth {
     return user;
   }
 
-  static Future<void> signOut() async { //Kullanıcı çıkışı için kullanıldı.
+  static Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
-  static Future<void> sendEmailVerification() async { //E-posta doğrulaması için
+  static Future<void> sendEmailVerification() async {
     User? user = FirebaseAuth.instance.currentUser;
     await user!.sendEmailVerification();
   }
 
-  static Future<User?> refreshUser(User user) async { //Kullanıcı bilgilerini güncellemek için kullanıldı.
+  static Future<User?> refreshUser(User user) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     await user.reload();
     User? refreshedUser = auth.currentUser;

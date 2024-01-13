@@ -8,7 +8,7 @@ class ImageService{
   String _base64Image="";
   String get base64Image => _base64Image;
 
-  Future<bool> pickAndSetImageFromGallery() async{  //Galeriden resim seçme
+  Future<bool> pickAndSetImageFromGallery() async{
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery,maxHeight: 800,maxWidth: 800);
     if(pickedFile != null){
@@ -20,7 +20,7 @@ class ImageService{
     return false;
   }
 
-  Future<bool> pickAndSetImageFromCamera() async{ //Kameradan resim seçme
+  Future<bool> pickAndSetImageFromCamera() async{
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.camera,maxHeight: 800,maxWidth: 800);
 
@@ -33,13 +33,13 @@ class ImageService{
     return false;
   }
 
-  Future<bool> saveImageToFirestore() async { //Resmi Firestore'a kaydetme
+  Future<bool> saveImageToFirestore() async {
     try {
       FirebaseAuth auth = FirebaseAuth.instance;
       User? user=auth.currentUser;
 
       if (user == null) {
-        print("Kullanıcı oturumu açmamış.");
+        print(" ");
         return false;
       }
       user=await FireAuth.refreshUser(user);
@@ -50,12 +50,12 @@ class ImageService{
       });
       return true;
     } catch (e) {
-      print('Firestore\'a resmi kaydederken bir hata oluştu: $e');
+      print('ERROR: $e');
       return false;
     }
   }
 
-  Future<String?> getImageFromFirestore(String userId) async { //Firestore'dan resmi çekme
+  Future<String?> getImageFromFirestore(String userId) async {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       DocumentSnapshot snapshot =
@@ -67,7 +67,7 @@ class ImageService{
         return null;
       }
     } catch (e) {
-      print('Firestore\'dan resmi çekerken bir hata oluştu: $e');
+      print('ERROR: $e');
       return null;
     }
   }

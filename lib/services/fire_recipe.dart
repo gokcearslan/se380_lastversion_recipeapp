@@ -44,7 +44,7 @@ class FirebaseService {
 
   Future<void> saveRecipe(Recipe recipe) async {
     try {
-      // Converting the Recipe information to a Map
+
       Map<String, dynamic> recipeData = {
         'name': recipe.name,
         'ingredientIds': recipe.ingredientIds,
@@ -53,7 +53,7 @@ class FirebaseService {
         'image': recipe.image,
       };
 
-      // Save the recipe to Firestore
+
       DocumentReference recipeRef = await _firestore.collection('recipes').add(recipeData);
 
       // Update the recipe with the document ID
@@ -70,7 +70,6 @@ class FirebaseService {
 
       firebase_storage.UploadTask uploadTask = storageRef.putFile(imageFile);
 
-      // Use whenComplete to check the upload status
       await uploadTask.whenComplete(() => print('Image uploaded successfully'));
 
       String downloadURL = await storageRef.getDownloadURL();
@@ -100,18 +99,18 @@ class FirebaseService {
         throw Exception('Recipe ID is null. Cannot update recipe without an ID.');
       }
 
-      // Converting the Recipe information to a Map
+
       Map<String, dynamic> updatedRecipeData = {
         'ingredientIds': recipe.ingredientIds,
         'instructions': recipe.instructions,
         // Include other fields you want to update
       };
 
-      // Update the existing recipe in Firestore
+
       await _firestore.collection('recipes').doc(recipe.id).update(updatedRecipeData);
     } catch (e) {
       print('Error updating recipe: $e');
-      // Handle the error appropriately
+
     }
   }
 

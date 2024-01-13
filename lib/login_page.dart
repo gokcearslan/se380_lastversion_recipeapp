@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
             if (snapshot.connectionState == ConnectionState.done) {
               return Stack(
                 children: [
-                  // Background Image
+
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                           key: _formKey,
                           child: Column(
                             children: <Widget>[
-                              // Email Input Field
+
                               TextFormField(
                                 controller: _emailTextController,
                                 focusNode: _focusEmail,
@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(height: 8.0),
 
-                              // Password information taken
+
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(height: 8.0),
 
-                              // Buttons
+
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [

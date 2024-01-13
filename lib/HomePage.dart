@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: navigateToCreateRecipe,
                   child: Stack(
                     children: <Widget>[
-                      // Background Image
+
                       Positioned.fill(
                         child: Image.network(
                           'https://i.pinimg.com/564x/2e/c7/6b/2ec76bcc46f6efa497c4ff4033dfb634.jpg',
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
 
-                      // Centered Text on top of the image
+
                       Center(
                         child: Text(
                           'Create New Recipe',
@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: navigateAllRecipesScreen,
                   child: Stack(
                     children: <Widget>[
-                      // Background Image
+
                       Positioned.fill(
                         child: Image.network(
                           'https://i.pinimg.com/564x/2e/c7/6b/2ec76bcc46f6efa497c4ff4033dfb634.jpg',
@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: navigateToSelectIngredients,
                   child: Stack(
                     children: <Widget>[
-                      // Background Image
+
                       Positioned.fill(
                         child: Image.network(
                           'https://i.pinimg.com/564x/2e/c7/6b/2ec76bcc46f6efa497c4ff4033dfb634.jpg',

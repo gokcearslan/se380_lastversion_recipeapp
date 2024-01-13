@@ -23,13 +23,13 @@ class RecipeDetailsScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () {
-              // Navigate to another page when the "Add" button is pressed
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => EditRecipePage(
                     recipe: recipe.data() as Map<String, dynamic>,
-                    editMode: true, // Set to true to enter edit mode
+                    editMode: true,
                   ),
                 ),
               );
@@ -161,11 +161,11 @@ class RecipeDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 16.0), // Add some space between text and image
+                          SizedBox(height: 16.0),
                           Image.file(
-                            File(recipe['image']), // Assuming 'image' is the file path
-                            height: 200, // Adjust the height as needed
-                            width: double.infinity, // Take the full width
+                            File(recipe['image']),
+                            height: 200,
+                            width: double.infinity,
                             fit: BoxFit.cover,
                           ),
                         ],
@@ -200,11 +200,11 @@ class RecipeDetailsScreen extends StatelessWidget {
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 16.0), // Add some space between text and image
+          SizedBox(height: 16.0),
           Image.file(
-            File(recipe['image']), // Assuming 'image' is the file path
-            height: 200, // Adjust the height as needed
-            width: double.infinity, // Take the full width
+            File(recipe['image']),
+            height: 200,
+            width: double.infinity,
             fit: BoxFit.cover,
           ),
         ],

@@ -81,7 +81,7 @@ class RecipeCard extends StatelessWidget {
         title: Text(
           recipeName,
           style: TextStyle(color: Navy,
-            //fontWeight: FontWeight.bold,
+
           ),
         ),
         leading: Container(
@@ -90,8 +90,8 @@ class RecipeCard extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: Navy, // Set the border color
-              width: 2.0, // Set the border width
+              color: Navy,
+              width: 2.0,
             ),
           ),
           child: CircleAvatar(

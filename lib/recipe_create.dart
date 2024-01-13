@@ -12,8 +12,7 @@ class CreateRecipePage extends StatefulWidget {
 }
 
 class _CreateRecipePageState extends State<CreateRecipePage> {
-  //final Color primaryColor = Colors.blue;
-  //final Color redP = Colors.red;
+
 
   final TextEditingController _recipeNameController = TextEditingController();
   List<TextEditingController> _ingredientControllers = [TextEditingController()];
@@ -67,10 +66,10 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
 
     if (_recipeNameController.text.isNotEmpty && ingredients.isNotEmpty && _recipeImage != null) {
       try {
-        // Use the image file path as the image URL
+
         String imageUrl = _recipeImage!.path;
 
-        // Create a new Recipe with the image URL
+
         Recipe newRecipe = Recipe(
           name: _recipeNameController.text,
           ingredientIds: ingredients,
@@ -80,16 +79,16 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
           id: '',
         );
 
-        // Save the recipe to Firebase
+
         FirebaseService().saveRecipe(newRecipe);
 
         _resetForm();
       } catch (e) {
         print('Error saving recipe: $e');
-        // Handle error as needed
+
       }
     } else {
-      // Display an alert for missing information
+
     }
   }
 
@@ -188,7 +187,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
             maxLines: 3,
             decoration: textFieldDecoration('Instructions'),
           ),
-          // Image picker
+
           TextButton.icon(
             onPressed: () async {
               final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);

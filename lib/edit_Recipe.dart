@@ -12,7 +12,7 @@ import 'Recipes.dart';
 
 class EditRecipePage extends StatefulWidget {
   final Map<String, dynamic> recipe;
-  final bool editMode; // New parameter to indicate edit mode
+  final bool editMode;
 
   EditRecipePage({required this.recipe, this.editMode = true});
 
@@ -35,7 +35,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
 
     if (widget.editMode) {
 
-      // Populate other controllers similarly
+
 
       ingredientControllers = List.generate(
         widget.recipe['ingredientIds'].length,
@@ -46,7 +46,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
           TextEditingController(text: widget.recipe['instructions']);
     }
    else {
-  // Initialize controllers with empty values
+
   ingredientControllers = [TextEditingController()];
   instructionsController = TextEditingController();
   }
@@ -65,15 +65,15 @@ class _EditRecipePageState extends State<EditRecipePage> {
 
           title: Text(widget.editMode ? 'Edit Recipe' : widget.recipe['name'],
               style: TextStyle(color: Colors.white, fontSize: 18)),
-          backgroundColor: Navy, // Use your desired color
+          backgroundColor: Navy,
           iconTheme: IconThemeData(color: Colors.white),
-          // New: Save button in AppBar
+
           actions: [
             if (widget.editMode)
               IconButton(
                 icon: Icon(Icons.save, size: 30,),
                 onPressed: () {
-                  // New: Save changes to Firestore and update UI
+
                   saveChanges();
 
                   Navigator.push(
@@ -125,7 +125,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
                                     controller: ingredientControllers[i],
                                     decoration: InputDecoration(
                                       labelText: 'Ingredient ${i + 1}',
-                                      // You can customize the decoration as needed
+
                                     ),
                                   ),
                                 ),
@@ -143,10 +143,10 @@ class _EditRecipePageState extends State<EditRecipePage> {
                       child: ListTile(
                         title: TextField(
                           controller: instructionsController,
-                          maxLines: null, // Allow multiline input
+                          maxLines: null,
                           decoration: InputDecoration(
                             labelText: 'Instructions',
-                            // You can customize the decoration as needed
+
                           ),
                         ),
                       ),
@@ -167,10 +167,10 @@ class _EditRecipePageState extends State<EditRecipePage> {
 
   void saveChanges() async {
     try {
-      // Assuming widget.recipeId is the ID of the recipe
+
       String recipeId = widget.recipe['id'];
 
-      // Update Firestore with the edited values
+
       await FirebaseService().updateRecipe(
         Recipe(
           id: recipeId,
@@ -182,15 +182,15 @@ class _EditRecipePageState extends State<EditRecipePage> {
         ),
       );
 
-      // Update UI with the edited values
+
       setState(() {
         widget.recipe['ingredientIds'] = ingredientControllers.map((controller) => controller.text).toList();
         widget.recipe['instructions'] = instructionsController.text;
-        // Update other recipe attributes similarly
+
       });
     } catch (e) {
       print('Error saving changes: $e');
-      // Handle the error appropriately
+
     }
   }
 
@@ -210,7 +210,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
     }
 
   Widget _buildInstructions(dynamic instructions, bool isEditMode) {
-    // Check if the application is in edit mode
+
     if (!isEditMode) {
       return Text(
         'No instructions available',
@@ -218,7 +218,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
       );
     }
 
-    // Continue with the original logic if in edit mode
+
     if (instructions is List) {
       return Column(
         children: instructions
@@ -282,7 +282,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
-                backgroundColor: Navy, // Replace with your color variable
+                backgroundColor: Navy,
                 foregroundColor: Colors.white,
                 child: Text('${entry.key + 1}'),
               ),
@@ -295,8 +295,8 @@ class _EditRecipePageState extends State<EditRecipePage> {
               ),
             ],
           ),
-          SizedBox(height: 16.0), // Add some space between text and image
-          // The image part remains unchanged
+          SizedBox(height: 16.0),
+
           Image.file(
             File(widget.recipe['image']),
             height: 200,
