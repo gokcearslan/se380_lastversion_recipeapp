@@ -1,6 +1,5 @@
 
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:se380_lastversion_recipeapp/services/recipe_model.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -55,8 +54,6 @@ class FirebaseService {
 
 
       DocumentReference recipeRef = await _firestore.collection('recipes').add(recipeData);
-
-      // Update the recipe with the document ID
       await recipeRef.update({'id': recipeRef.id});
     } catch (e) {
       print('Error saving recipe: $e');
@@ -83,7 +80,6 @@ class FirebaseService {
   // favorites
   Future<void> updateFavoriteStatus(String recipeId, bool isFavorite) async {
     try {
-      // Update the 'favorite' field in the recipe document
       await _firestore.collection('recipes').doc(recipeId).update({'favorite': isFavorite});
     } catch (e) {
       print('Error updating favorite status: $e');
@@ -94,18 +90,14 @@ class FirebaseService {
 
   Future<void> updateRecipe(Recipe recipe) async {
     try {
-      // Ensure that the recipe has an ID
       if (recipe.id == null) {
         throw Exception('Recipe ID is null. Cannot update recipe without an ID.');
       }
 
-
       Map<String, dynamic> updatedRecipeData = {
         'ingredientIds': recipe.ingredientIds,
         'instructions': recipe.instructions,
-        // Include other fields you want to update
       };
-
 
       await _firestore.collection('recipes').doc(recipe.id).update(updatedRecipeData);
     } catch (e) {

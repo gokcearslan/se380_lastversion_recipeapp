@@ -94,8 +94,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
 
 
 
-
-
   void _resetForm() {
     _recipeNameController.clear();
     _ingredientControllers.forEach((controller) => controller.clear());

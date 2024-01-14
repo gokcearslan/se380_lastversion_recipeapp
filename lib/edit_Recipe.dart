@@ -35,8 +35,6 @@ class _EditRecipePageState extends State<EditRecipePage> {
 
     if (widget.editMode) {
 
-
-
       ingredientControllers = List.generate(
         widget.recipe['ingredientIds'].length,
             (index) =>
@@ -195,9 +193,6 @@ class _EditRecipePageState extends State<EditRecipePage> {
   }
 
 
-
-
-
   Widget _buildSectionTitle(String title) {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -208,105 +203,6 @@ class _EditRecipePageState extends State<EditRecipePage> {
         ),
       );
     }
-
-  Widget _buildInstructions(dynamic instructions, bool isEditMode) {
-
-    if (!isEditMode) {
-      return Text(
-        'No instructions available',
-        style: TextStyle(color: Colors.black),
-      );
-    }
-
-
-    if (instructions is List) {
-      return Column(
-        children: instructions
-            .asMap()
-            .entries
-            .map(
-              (entry) => AnimationConfiguration.staggeredList(
-            position: entry.key,
-            duration: const Duration(milliseconds: 500),
-            child: SlideAnimation(
-              verticalOffset: 50.0,
-              child: FadeInAnimation(
-                child: _instructionContainer(entry),
-              ),
-            ),
-          ),
-        )
-            .toList(),
-      );
-    } else if (instructions is String) {
-      return Column(
-        children: [
-          _instructionContainer(MapEntry<int, dynamic>(0, instructions)),
-          SizedBox(height: 16.0),
-          Image.file(
-            File(widget.recipe['image']),
-            height: 200,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-        ],
-      );
-    } else {
-      return Text(
-        'No instructions available',
-        style: TextStyle(color: Colors.black),
-      );
-    }
-  }
-
-  Widget _instructionContainer(MapEntry<int, dynamic> entry) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                backgroundColor: Navy,
-                foregroundColor: Colors.white,
-                child: Text('${entry.key + 1}'),
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  entry.value.toString(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16.0),
-
-          Image.file(
-            File(widget.recipe['image']),
-            height: 200,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-        ],
-      ),
-    );
-  }
 
 
 }
